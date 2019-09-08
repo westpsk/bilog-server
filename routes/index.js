@@ -30,7 +30,7 @@ router.get('/api', function(req, res, next) {
     const start = [+item[0], +item[1]]
     const end = [+item[2], +item[3]]
     const num = +item[4]
-    const color = (item[5] && ~item[5].indexOf('#') && item[5]) || '#00b0f0'
+    const color = item[5] ? `#${item[5]}` : '#00b0f0'
     console.log(start, end, num)
     for(let i = 0; i < num; i++){
       result.push({
