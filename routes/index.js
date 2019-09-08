@@ -24,12 +24,13 @@ router.get('/', function(req, res, next) {
 router.get('/api', function(req, res, next) {
   const poi = req.query.poi
   const points = poi.split('|').map(item => item.split(','))
-  console.log(points)
+  console.log(poi, points)
   const result = []
   points.forEach((item,index) => {
     const start = [+item[0], +item[1]]
     const end = [+item[2], +item[3]]
     const num = +item[4]
+    const color = (item[5] && ~item[5].indexOf('#') && item[5]) || '#00b0f0'
     console.log(start, end, num)
     for(let i = 0; i < num; i++){
       result.push({
@@ -37,7 +38,7 @@ router.get('/api', function(req, res, next) {
         name: `${phonePre[genRandomInt(0, phonePre.length)]}${genRandomInt(1, 10e7)}`,
         x: getRandom(start[0], end[0]),
         y: getRandom(start[1], end[1]),
-        color: '#00b0f0',
+        color: color,
         province: '江苏',
         type_id: 1
       })
