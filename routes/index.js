@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var json = require('../public/company.json')
 
 const phonePre = [
   '139', '138', '137', '136', '135', '134', '159', '158', '157', '150',
@@ -22,6 +21,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/api', function(req, res, next) {
+  const json = require('../public/company.json')
   const poi = req.query.poi
   const points = poi.split('|').map(item => item.split(','))
   console.log(poi, points)
@@ -31,10 +31,12 @@ router.get('/api', function(req, res, next) {
     const end = [+item[2], +item[3]]
     const num = +item[4]
     const color = item[5] ? `#${item[5]}` : '#00b0f0'
-    console.log(start, end, num)
     for(let i = 0; i < num; i++){
+      const area = index > 9 ? index.toString() : `0${index}`
+      const zeroLength = 6 - area.length - i.toString().length
+      let zeroStr = Array.from({length: zeroLength}).fill(0)
       result.push({
-        id: `${index}${i}`,
+        id: `JS${area}${zeroStr.join('')}${i}`,
         name: `${phonePre[genRandomInt(0, phonePre.length)]}${genRandomInt(1, 10e7)}`,
         x: getRandom(start[0], end[0]),
         y: getRandom(start[1], end[1]),
