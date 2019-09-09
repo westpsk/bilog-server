@@ -25,8 +25,8 @@ router.get('/api', function(req, res, next) {
   const poi = req.query.poi
   const points = poi.split('|').map(item => item.split(','))
   console.log(poi, points)
-  const result = []
   points.forEach((item,index) => {
+    const result = []
     const start = [+item[0], +item[1]]
     const end = [+item[2], +item[3]]
     const num = +item[4]
